@@ -67,7 +67,7 @@ ul {
 ul li p {
    vertical-align: middle;
    margin: 15px auto 15px auto;
-   width: 500px;
+   width: auto;
    height: auto;
    background-color: #FFFFFF;
    border-radius: 5px;
