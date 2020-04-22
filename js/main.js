@@ -64,3 +64,9 @@ function deleteTodo(pos) {
    roster.splice(pos, 1);
    render();
 }
+
+inputElement.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        buttonElement.click();
+    }
+});

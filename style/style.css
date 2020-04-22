@@ -37,7 +37,7 @@ input {
    background-color: #A9A9A9;
    border-radius: 5px;
    height: 30px;
-   width: 60%;
+   width: 70%;
    margin: 30px 0 15px 0;
 }
 
@@ -51,7 +51,7 @@ button {
    border-radius: 5px;
    background-color: #181818;
    color: #FFFFFF;
-   width: 80px;
+   width: 50%;
    height: 30px;
 }
 
@@ -69,13 +69,16 @@ ul {
 }
 
 ul li p {
+   padding-top: 5px;
+   padding-bottom: 5px;
    vertical-align: middle;
    margin: 15px auto 15px auto;
    width: auto;
-   min-width: 60%;
+   min-width: 100%;
    height: auto;
    background-color: #FFFFFF;
    border-radius: 5px;
+   overflow: auto;
 }
 
 ul li a {
