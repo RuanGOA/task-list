@@ -27,13 +27,17 @@ header {
    }
 }
 
+main {
+   margin: auto;
+}
+
 input {
    padding-left:10px;
    border-width: 0px;
    background-color: #A9A9A9;
    border-radius: 5px;
    height: 30px;
-   width: 300px;
+   width: 60%;
    margin: 30px 0 15px 0;
 }
 
@@ -59,7 +63,7 @@ button:active {
 }
 
 ul {
-   align-content: center;
+   text-align: center;
    list-style: none;
    padding: 0px;
 }
@@ -68,6 +72,7 @@ ul li p {
    vertical-align: middle;
    margin: 15px auto 15px auto;
    width: auto;
+   min-width: 60%;
    height: auto;
    background-color: #FFFFFF;
    border-radius: 5px;
