@@ -1,0 +1,92 @@
+body {
+   text-align: center;
+   background-color: #181818;
+   margin: 0;
+}
+
+#main {
+   width: 60%;
+   margin: auto;
+}
+
+header {
+   margin: 60px auto 60px auto;
+   color: #FFFFFF;
+   text-align: center;
+}
+
+#blink {
+   animation: blinking 1s infinite;
+}
+
+@keyframes blinking {
+   0%, 34% {
+       color: #FFFFFF;
+   } 35%, 100% {
+       color: #181818;
+   }
+}
+
+input {
+   padding-left:10px;
+   border-width: 0px;
+   background-color: #A9A9A9;
+   border-radius: 5px;
+   height: 30px;
+   width: 300px;
+   margin: 30px 0 15px 0;
+}
+
+input:focus {
+   background-color: #FFFFFF;
+}
+
+button {
+   border-width: 1px;
+   border-color: white;
+   border-radius: 5px;
+   background-color: #181818;
+   color: #FFFFFF;
+   width: 80px;
+   height: 30px;
+}
+
+button:active {
+   border-left-width: 3px;
+   border-top-width: 3px;
+   border-right-width: 2px;
+   border-bottom-width: 2px;  
+}
+
+ul {
+   align-content: center;
+   list-style: none;
+   padding: 0px;
+}
+
+ul li p {
+   vertical-align: middle;
+   margin: 15px auto 15px auto;
+   width: 500px;
+   height: auto;
+   background-color: #FFFFFF;
+   border-radius: 5px;
+}
+
+ul li a {
+   text-decoration: none;
+   font-size: 12px;
+}
+
+footer {
+   margin: auto;
+   color: white;
+   bottom: 0px;
+   font-size: 35px;
+   height: 40px;
+}
+
+footer a {
+   color: #FFFFFF;
+   text-decoration: none;
+}
