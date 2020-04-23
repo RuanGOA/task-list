@@ -52,10 +52,12 @@ function createLi(text, pos) {
 function addTodo() {
    var todoText = inputElement.value;
 
-   roster.push(todoText);
-   inputElement.value = '';
-
-   render();
+   if(todoText.trim() != ''){
+      roster.push(todoText);
+      inputElement.value = '';
+      
+      render();
+   }
 }
 
 buttonElement.onclick = addTodo;
