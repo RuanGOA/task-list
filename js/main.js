@@ -2,7 +2,7 @@ var inputElement = document.querySelector('#main main input');
 var buttonElement = document.querySelector('#main main button');
 var listElement = document.querySelector('#main main ul');
 
-var roster = [];
+var roster = JSON.parse(localStorage.getItem('roster')) || [];
 
 function render() {
    listElement.innerHTML = '';
@@ -16,6 +16,11 @@ function render() {
 
 render();
 
+/*
+   Creates a <li> using text, 
+   and the position of the text 
+   on the roster. 
+*/
 function createLi(text, pos) {
    //create <a> element
    var aElement = document.createElement('a');
@@ -51,24 +56,49 @@ function createLi(text, pos) {
 
 function addTodo() {
    var todoText = inputElement.value;
+   //verify empty value
+   if(todoText.trim() != ''){
+      roster.push(todoText);
+      inputElement.value = '';
 
+<<<<<<< HEAD
+      saveRoster();
+
+=======
    if(todoText.trim() != ''){
       roster.push(todoText);
       inputElement.value = '';
       
+>>>>>>> c886207a121e0df6a9d9426f430bf8b81cb67682
       render();
    }
 }
 
-buttonElement.onclick = addTodo;
-
 function deleteTodo(pos) {
    roster.splice(pos, 1);
+
+   saveRoster();
+
    render();
 }
 
+//save the roster in the localStorage
+function saveRoster() {
+   localStorage.setItem('roster', JSON.stringify(roster));
+}
+
+//activate button.onclick() with -enter
 inputElement.addEventListener("keyup", function(event) {
+<<<<<<< HEAD
+   if (event.keyCode === 13) {
+      buttonElement.click();
+   }
+});
+
+buttonElement.onclick = addTodo;
+=======
     if (event.keyCode === 13) {
         buttonElement.click();
     }
 });
+>>>>>>> c886207a121e0df6a9d9426f430bf8b81cb67682
