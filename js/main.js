@@ -61,15 +61,8 @@ function addTodo() {
       roster.push(todoText);
       inputElement.value = '';
 
-<<<<<<< HEAD
       saveRoster();
-
-=======
-   if(todoText.trim() != ''){
-      roster.push(todoText);
-      inputElement.value = '';
-      
->>>>>>> c886207a121e0df6a9d9426f430bf8b81cb67682
+  
       render();
    }
 }
@@ -89,16 +82,9 @@ function saveRoster() {
 
 //activate button.onclick() with -enter
 inputElement.addEventListener("keyup", function(event) {
-<<<<<<< HEAD
    if (event.keyCode === 13) {
       buttonElement.click();
    }
 });
 
 buttonElement.onclick = addTodo;
-=======
-    if (event.keyCode === 13) {
-        buttonElement.click();
-    }
-});
->>>>>>> c886207a121e0df6a9d9426f430bf8b81cb67682

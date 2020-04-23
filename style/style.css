@@ -32,7 +32,7 @@ main {
 }
 
 input {
-   padding-left:10px;
+   padding: 0 10px 0 10px;
    border-width: 0px;
    background-color: #A9A9A9;
    border-radius: 5px;
@@ -46,13 +46,14 @@ input:focus {
 }
 
 button {
+   padding: 3px;
    border-width: 1px;
    border-color: white;
    border-radius: 5px;
    background-color: #181818;
    color: #FFFFFF;
    width: 50%;
-   height: 30px;
+   height: auto;
 }
 
 button:active {
