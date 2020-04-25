@@ -7,43 +7,48 @@ var roster = JSON.parse(localStorage.getItem('roster')) || [];
 function render() {
    listElement.innerHTML = '';
 
-   for(todo of roster) {
-      var pos = roster.indexOf(todo);
+   for(task of roster) {
+      task.pos = roster.indexOf(task);
 
-      listElement.appendChild(createLi(todo, pos));
+      listElement.appendChild(createLi(task));
    }
 }
 
 render();
 
+function mutateState(pos) {
+   var result;
+   if(roster[pos].state === "PLAY") {
+      roster[pos].state = "PAUSE";
+
+   } else {
+      roster[pos].state = "PLAY";
+
+   }
+
+   render();
+}
+
 /*
-   Creates a <li> using text, 
-   and the position of the text 
-   on the roster. 
+   Creates a <li> using task object
+   in the roster. 
 */
-function createLi(text, pos) {
-   //create <a> element
-   var aElement = document.createElement('a');
-   aElement.setAttribute('href', '#');
-   aElement.setAttribute('onclick', 'deleteTodo(' + pos + ')');
-   //create <a> text
-   String.fromCodePoint(0x1F621)
-   var aText = document
-      .createTextNode('  ' +
-         String.fromCodePoint(0x274C)
-      );
-   //fin. <a>
-   aElement.appendChild(aText);
+function createLi(task) {
+   //create <a> element for exclude task
+   var aExclude = createAElement(task, 'DELETE');
+
+   //create <a> element for mutate state of the task
+   var aState = createAElement(task, 'MUTATE STATE');
 
    //create <p> element
    var pElement = document.createElement('p');
    //create text of <p>
-   var pText = document.createTextNode(text);
-   //fin. <p>
+   var pText = document.createTextNode(task.text);
    pElement.appendChild(pText);
 
-   //add <a> to <p>
-   pElement.appendChild(aElement);
+   //add <a>s to <p>
+   pElement.appendChild(aExclude);
+   pElement.appendChild(aState);
 
    //create <li> element
    var liElement = document.createElement('li');
@@ -58,7 +63,11 @@ function addTodo() {
    var todoText = inputElement.value;
    //verify empty value
    if(todoText.trim() != ''){
-      roster.push(todoText);
+      var task = new Object();
+      task.state = "PAUSE";
+      task.text = todoText;
+
+      roster.push(task);
       inputElement.value = '';
 
       saveRoster();
@@ -88,3 +97,34 @@ inputElement.addEventListener("keyup", function(event) {
 });
 
 buttonElement.onclick = addTodo;
+
+//create a <a> element with function and task
+function createAElement(task, func) {
+   var aElement = document.createElement('a');
+   aElement.setAttribute('href', '#');
+
+   var iAElement = document.createElement('i');
+
+   if(func === "DELETE") {
+      aElement.setAttribute('onclick', 'deleteTodo(' + task.pos + ')');
+      aElement.setAttribute('title', 'exclude');
+
+      iAElement.setAttribute('class', 'fa fa-stop');
+
+      aElement.appendChild(iAElement);
+   } else if(func === "MUTATE STATE") {
+      aElement.setAttribute('onclick', 'mutateState(' + task.pos + ')');
+
+      if(task.state === "PLAY") {
+         iAElement.setAttribute('class', 'fa fa-pause');
+         aElement.setAttribute('title', 'pause');
+      } else { 
+         iAElement.setAttribute('class', 'fa fa-play');
+         aElement.setAttribute('title', 'play');
+      }
+   }
+
+   aElement.appendChild(iAElement);
+
+   return aElement;
+}
