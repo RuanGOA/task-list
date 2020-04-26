@@ -12,8 +12,6 @@ function render() {
    listElement.innerHTML = '';
 
    for(task of roster) {
-      task.pos = roster.indexOf(task);
-
       listElement.appendChild(createLi(task));
    }
 }
@@ -21,16 +19,21 @@ function render() {
 /*
    modify state of the task using the position
 */
-function mutateState(pos) {
-   var result;
-   if(roster[pos].state === "PLAY") {
-      roster[pos].state = "PAUSE";
+function mutateState(pos, type) {
+   if(type === "STATE"){
+      if(roster[pos].state === "PLAY") {
+         roster[pos].state = "PAUSE";
 
+      } else {
+         roster[pos].state = "PLAY";
+         
+      }
    } else {
-      roster[pos].state = "PLAY";
-      
+      roster[pos].state = "CHECKED";
+
    }
 
+   saveRoster();
    render();
 }
 
@@ -43,14 +46,23 @@ function createLi(task) {
    var topDiv = document.createElement('div');
    topDiv.setAttribute('class', 'top');
 
-   //create a elements
    var aExclude = createAElement(task, 'DELETE');
-   var aState = createAElement(task, 'MUTATE STATE');
-
-   //add <a>s elements in top div
    topDiv.appendChild(aExclude);
-   topDiv.appendChild(aState);
+   //create a elements
+   if(task.state !== "CHECKED"){
+      var aState = createAElement(task, 'MUTATE STATE');
+      topDiv.appendChild(aState);
 
+      var aCheck = createAElement(task, 'CHECKED');
+      topDiv.appendChild(aCheck);
+   } else {
+      var iChecked = document.createElement('i');
+      iChecked.setAttribute('class', 'fa fa-check');
+      iChecked.style.color = '#0F0';
+
+      topDiv.appendChild(iChecked);
+   }
+   
 ////
 
    //create bot div
@@ -88,19 +100,28 @@ function createAElement(task, func) {
       aElement.setAttribute('onclick', 'deleteTodo(' + task.pos + ')');
       aElement.setAttribute('title', 'exclude');
 
-      iAElement.setAttribute('class', 'fa fa-stop');
+      iAElement.setAttribute('class', 'fa fa-times-circle');
 
       aElement.appendChild(iAElement);
+      aElement.style.color = '#F00';
    } else if(func === "MUTATE STATE") {
-      aElement.setAttribute('onclick', 'mutateState(' + task.pos + ')');
+      aElement.setAttribute('onclick', 'mutateState(' + task.pos + ',"STATE")');
 
       if(task.state === "PLAY") {
-         iAElement.setAttribute('class', 'fa fa-pause');
+         iAElement.setAttribute('class', 'fa fa-pause-circle');
          aElement.setAttribute('title', 'pause');
       } else { 
-         iAElement.setAttribute('class', 'fa fa-play');
-         aElement.setAttribute('title', 'play');
-      }
+         iAElement.setAttribute('class', 'fa fa-play-circle');
+         aElement.setAttribute('title', 'play');   
+      } 
+
+      aElement.style.color = '#FF0';
+   } else if(func === "CHECKED") {
+      aElement.setAttribute('onclick', 'mutateState(' + task.pos + ',"CHECK")');
+
+      iAElement.setAttribute('class', 'fa fa-check-circle');
+      aElement.setAttribute('title', 'check task');
+      aElement.style.color = '#0F0';
    }
 
    aElement.appendChild(iAElement);
@@ -120,6 +141,8 @@ function addTodo() {
       task.text = todoText;
 
       roster.push(task);
+      task.pos = roster.indexOf(task);
+
       inputElement.value = '';
 
       saveRoster();
@@ -134,9 +157,20 @@ function addTodo() {
 function deleteTodo(pos) {
    roster.splice(pos, 1);
 
+   reposition();
+
    saveRoster();
 
    render();
+}
+
+/*
+   reposition the elements after a delete
+*/
+function reposition() {
+   for(task of roster) {
+      task.pos = roster.indexOf(task);
+   }
 }
 
 /* 
