@@ -2,8 +2,12 @@ var inputElement = document.querySelector('#main main input');
 var buttonElement = document.querySelector('#main main button');
 var listElement = document.querySelector('#main main ul');
 
+// list of the tasks
 var roster = JSON.parse(localStorage.getItem('roster')) || [];
 
+/*
+   modify the DOM
+*/
 function render() {
    listElement.innerHTML = '';
 
@@ -14,8 +18,9 @@ function render() {
    }
 }
 
-render();
-
+/*
+   modify state of the task using the position
+*/
 function mutateState(pos) {
    var result;
    if(roster[pos].state === "PLAY") {
@@ -23,7 +28,7 @@ function mutateState(pos) {
 
    } else {
       roster[pos].state = "PLAY";
-
+      
    }
 
    render();
@@ -34,71 +39,45 @@ function mutateState(pos) {
    in the roster. 
 */
 function createLi(task) {
-   //create <a> element for exclude task
-   var aExclude = createAElement(task, 'DELETE');
+   //create top div
+   var topDiv = document.createElement('div');
+   topDiv.setAttribute('class', 'top');
 
-   //create <a> element for mutate state of the task
+   //create a elements
+   var aExclude = createAElement(task, 'DELETE');
    var aState = createAElement(task, 'MUTATE STATE');
 
-   //create <p> element
+   //add <a>s elements in top div
+   topDiv.appendChild(aExclude);
+   topDiv.appendChild(aState);
+
+////
+
+   //create bot div
+   var botDiv = document.createElement('div');
+   botDiv.setAttribute('class', 'bot');
+
+   //create p element
    var pElement = document.createElement('p');
-   //create text of <p>
    var pText = document.createTextNode(task.text);
    pElement.appendChild(pText);
 
-   //add <a>s to <p>
-   pElement.appendChild(aExclude);
-   pElement.appendChild(aState);
+   //add p element in bot div
+   botDiv.appendChild(pElement);
 
    //create <li> element
    var liElement = document.createElement('li');
    
    //add <p> to <li>
-   liElement.appendChild(pElement);
+   liElement.appendChild(topDiv);
+   liElement.appendChild(botDiv);
 
    return liElement;
 }
 
-function addTodo() {
-   var todoText = inputElement.value;
-   //verify empty value
-   if(todoText.trim() != ''){
-      var task = new Object();
-      task.state = "PAUSE";
-      task.text = todoText;
-
-      roster.push(task);
-      inputElement.value = '';
-
-      saveRoster();
-  
-      render();
-   }
-}
-
-function deleteTodo(pos) {
-   roster.splice(pos, 1);
-
-   saveRoster();
-
-   render();
-}
-
-//save the roster in the localStorage
-function saveRoster() {
-   localStorage.setItem('roster', JSON.stringify(roster));
-}
-
-//activate button.onclick() with -enter
-inputElement.addEventListener("keyup", function(event) {
-   if (event.keyCode === 13) {
-      buttonElement.click();
-   }
-});
-
-buttonElement.onclick = addTodo;
-
-//create a <a> element with function and task
+/*
+   create a <a> element with function and task
+*/
 function createAElement(task, func) {
    var aElement = document.createElement('a');
    aElement.setAttribute('href', '#');
@@ -128,3 +107,55 @@ function createAElement(task, func) {
 
    return aElement;
 }
+
+/*
+   add todo text in the roster
+*/
+function addTodo() {
+   var todoText = inputElement.value;
+   //verify empty value
+   if(todoText.trim() != ''){
+      var task = new Object();
+      task.state = "PAUSE";
+      task.text = todoText;
+
+      roster.push(task);
+      inputElement.value = '';
+
+      saveRoster();
+  
+      render();
+   }
+}
+
+/*
+   delete todo text
+*/
+function deleteTodo(pos) {
+   roster.splice(pos, 1);
+
+   saveRoster();
+
+   render();
+}
+
+/* 
+   save the roster 
+   in the localStorage
+*/
+function saveRoster() {
+   localStorage.setItem('roster', JSON.stringify(roster));
+}
+
+/*
+   activate button.onclick() with -enter
+*/
+inputElement.addEventListener("keyup", function(event) {
+   if (event.keyCode === 13) {
+      buttonElement.click();
+   }
+});
+
+buttonElement.onclick = addTodo;
+
+render();
