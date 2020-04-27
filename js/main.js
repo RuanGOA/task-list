@@ -51,16 +51,21 @@ function createLi(task) {
    //create a elements
    if(task.state !== "CHECKED"){
       var aState = createAElement(task, 'MUTATE STATE');
-      topDiv.appendChild(aState);
-
+      
       var aCheck = createAElement(task, 'CHECKED');
+      if(task.state === "PAUSE") {
+         topDiv.style.backgroundColor = '#FF0';
+         aState.style.color = '#181818';
+      }
+      topDiv.appendChild(aState);
       topDiv.appendChild(aCheck);
    } else {
       var iChecked = document.createElement('i');
       iChecked.setAttribute('class', 'fa fa-check');
-      iChecked.style.color = '#0F0';
+      iChecked.style.color = '#181818';
 
       topDiv.appendChild(iChecked);
+      topDiv.style.backgroundColor = '#5FB404';
    }
    
 ////
@@ -121,7 +126,7 @@ function createAElement(task, func) {
 
       iAElement.setAttribute('class', 'fa fa-check-circle');
       aElement.setAttribute('title', 'check task');
-      aElement.style.color = '#0F0';
+      aElement.style.color = '#5FB404';
    }
 
    aElement.appendChild(iAElement);

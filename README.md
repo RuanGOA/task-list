@@ -6,7 +6,7 @@ This tool can help you daily in organizing tasks that must be done.
 * [x] Add possibilities: "start", "pause" and "end" a task  
 * [x] Enable roster "persistence"  
 * [x] Put the buttons outside the *p* tag  
-* [ ] Save option
+* [ ] Save button    
 
 
 Enjoy :grinning:
