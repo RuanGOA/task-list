@@ -54,7 +54,7 @@ function createLi(task) {
       
       var aCheck = createAElement(task, 'CHECKED');
       if(task.state === "PAUSE") {
-         topDiv.style.backgroundColor = '#FF0';
+         topDiv.style.backgroundColor = '#FFBE3C';
          aState.style.color = '#181818';
       }
       topDiv.appendChild(aState);
@@ -65,7 +65,7 @@ function createLi(task) {
       iChecked.style.color = '#181818';
 
       topDiv.appendChild(iChecked);
-      topDiv.style.backgroundColor = '#5FB404';
+      topDiv.style.backgroundColor = '#5FD044';
    }
    
 ////
@@ -108,7 +108,7 @@ function createAElement(task, func) {
       iAElement.setAttribute('class', 'fa fa-times-circle');
 
       aElement.appendChild(iAElement);
-      aElement.style.color = '#F00';
+      aElement.style.color = '#F86057';
    } else if(func === "MUTATE STATE") {
       aElement.setAttribute('onclick', 'mutateState(' + task.pos + ',"STATE")');
 
@@ -120,13 +120,13 @@ function createAElement(task, func) {
          aElement.setAttribute('title', 'play');   
       } 
 
-      aElement.style.color = '#FF0';
+      aElement.style.color = '#FFBE3C';
    } else if(func === "CHECKED") {
       aElement.setAttribute('onclick', 'mutateState(' + task.pos + ',"CHECK")');
 
       iAElement.setAttribute('class', 'fa fa-check-circle');
       aElement.setAttribute('title', 'check task');
-      aElement.style.color = '#5FB404';
+      aElement.style.color = '#5FD044';
    }
 
    aElement.appendChild(iAElement);
